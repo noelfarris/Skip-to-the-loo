@@ -184,7 +184,7 @@ var AddPlace = React.createClass({
                 onRegionChange={this._onRegionChange}
                 onRegionChangeComplete={this._onRegionChangeComplete}
                 region={this.state.mapRegion || undefined}
-                annotations={this.state.locations || undefined}
+                annotations={this.state.annotations || undefined}
                 showsUserLocation={true}
             />
             <MapRegionInput
