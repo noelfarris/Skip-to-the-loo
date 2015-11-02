@@ -15,7 +15,7 @@ var {
 
 Parse.initialize("Ephd4kdFUPOAjPQLne3j0qrDTc9xEoVtInweFsjE", "ll31Fq7cizQDvbAniYNrbK8OHYncAM1FtmAbsjgx");
 
- 
+//This componenet renders the bottom tab bar
 class AwesomeProject extends Component {
  
     constructor(props) {

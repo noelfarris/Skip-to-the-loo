@@ -1,3 +1,5 @@
+//Component shows details of place when selected from list view or from a map annotation. 
+
 'use strict';
  
 var Parse = require('parse/react-native');
@@ -76,7 +78,7 @@ var styles = StyleSheet.create({
 });
  
 class PlaceDetail extends Component {
-
+//Creating constructor for review list view
     constructor(props) {
        super(props);
        this.state = {

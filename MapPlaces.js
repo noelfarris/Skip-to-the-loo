@@ -1,3 +1,5 @@
+//This component renders the mapview along with annotations of places.
+
 'use strict';
 
 var React = require('react-native');
@@ -138,12 +140,12 @@ var MapPlaces = React.createClass({
 			isFirstLoad: true,
 		};
 	},
-
+//here is where the search city functionality is added.
 	componentWillMount() {
 				this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
 					placeholder: 'Search',
 					minLength: 2, // minimum length of text to search 
-					autoFocus: false,
+					autoFocus: true,
 					fetchDetails: true,
 					onPress: this._onSearchComplete,
 					getDefaultValue() {

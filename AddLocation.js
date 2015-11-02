@@ -1,9 +1,13 @@
+//Component used to add an annotation to the map as a location in the location model.
+
 'use strict';
 
 var React = require('react-native');
 var Parse = require('parse/react-native');
 var PlaceModel = require('./PlaceModel');
 var PlaceDetail = require('./PlaceDetail');
+
+
 
 var {
   MapView,
@@ -22,16 +26,6 @@ var regionText = {
 };
 
 var MapRegionInput = React.createClass({
-
-  propTypes: {
-    region: React.PropTypes.shape({
-      latitude: React.PropTypes.number.isRequired,
-      longitude: React.PropTypes.number.isRequired,
-      latitudeDelta: React.PropTypes.number.isRequired,
-      longitudeDelta: React.PropTypes.number.isRequired,
-    }),
-    onChange: React.PropTypes.func.isRequired,
-  },
 
   getInitialState: function() {
     return {
@@ -132,8 +126,10 @@ var MapRegionInput = React.createClass({
     });
     this.props.onChange(this.state.region);
   },
+
 });
-var AddPlace = React.createClass({
+
+var MapPlaces = React.createClass({
 
   getInitialState() {
     return {
@@ -145,46 +141,70 @@ var AddPlace = React.createClass({
     };
   },
 
-  // componentWillMount() {
-  //       var query = new Parse.Query('Place');
-  //         query.find().then(
-  //           (locations) => {
-  //               console.log(locations);
-  //               var places = locations.map((place) => {
-  //                   console.log(place);
-  //                   return {
-  //                           latitude: place.get('location').latitude, 
-  //                           longitude: place.get('location').longitude,
-  //                           title: place.get('title'),
-  //                           subtitle: (place.get('rating')).toString() + ' Luu Rolls',
-  //                           hasRightCallout: true,
-  //                           onRightCalloutPress: (() => {
-  //                                                               this.props.navigator.push({
-  //                                                                   title: place.get('title'),
-  //                                                                   component: PlaceDetail,
-  //                                                                   passProps: {place: place}
-  //                                                               })
-  //                                                           })
-  //                       };
-  //               });
-  //               //this.setState({annotations: placeLatlng});
-  //               this.setState({locations: places});
-  //           },
-  //           (err) => {
-  //               console.log(err);
-  //           }
-  //           );
-  //   },
+  componentWillMount() {
+        this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
+          placeholder: 'Search',
+          minLength: 2, // minimum length of text to search 
+          autoFocus: false,
+          fetchDetails: true,
+          onPress: this._onSearchComplete,
+          getDefaultValue() {
+            return ''; // text input default value 
+          },
+          query: {
+            // available options: https://developers.google.com/places/web-service/autocomplete 
+            key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
+            language: 'en', // language of the results 
+            types: '(cities)', // default: 'geocode' 
+          },
+          styles: {
+            description: {
+              fontWeight: 'bold',
+            },
+          }
+        });  
+        var query = new Parse.Query('Place');
+          query.find().then(
+            (locations) => {
+                console.log(locations);
+                var places = locations.map((place) => {
+                    console.log(place);
+                    return {
+                            latitude: place.get('location').latitude, 
+                            longitude: place.get('location').longitude,
+                            title: place.get('title'),
+                            subtitle: (place.get('rating')).toString() + ' Loo Rolls',
+                            hasRightCallout: true,
+                            onRightCalloutPress: (() => {
+                              this.props.navigator.push({
+                                  title: place.get('title'),
+                                  component: PlaceDetail,
+                                  passProps: {place: place}
+                              })
+                          })
+                        };
+                });
+                //this.setState({annotations: placeLatlng});
+                this.setState({locations: places});
+            },
+            (err) => {
+                console.log(err);
+            }
+            );
+    },
 
     render() {
+        var MapSearch = this.GooglePlacesAutocomplete;
+        console.log(this.state.mapRegion);
         return (
-            <View>
+            <View style={styles.view}>
+            <MapSearch />
             <MapView
                 style={styles.map}
                 onRegionChange={this._onRegionChange}
                 onRegionChangeComplete={this._onRegionChangeComplete}
                 region={this.state.mapRegion || undefined}
-                annotations={this.state.annotations || undefined}
+                annotations={this.state.locations || undefined}
                 showsUserLocation={true}
             />
             <MapRegionInput
@@ -227,12 +247,26 @@ var AddPlace = React.createClass({
     });
   },
 
+  _onSearchComplete(data, details=null) {
+    console.log(data, details);
+    console.log('onSearchComplete');
+    this.setState({
+      mapRegion: {
+        latitude: details.geometry.location.lat,
+        longitude: details.geometry.location.lng,
+      }
+  })
+}
+
 });
 
 var styles = StyleSheet.create({
+    view: {
+        paddingTop: 65,
+    },
   map: {
     height: 450,
-    marginTop: 65,
+    marginTop: -33
   },
   row: {
     flexDirection: 'row',
@@ -255,4 +289,20 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = AddPlace;
+module.exports = MapPlaces;
+
+// exports.displayName = (undefined: ?string);
+// exports.title = '<MapView>';
+// exports.description = 'Base component to display maps';
+// exports.examples = [
+//   {
+//     title: 'Map',
+//     render(): ReactElement { return <MapViewExample />; }
+//   },
+//   {
+//     title: 'Map shows user location',
+//     render() {
+//       return  <MapView style={styles.map} showsUserLocation={true} />;
+//     }
+//   }
+// ];

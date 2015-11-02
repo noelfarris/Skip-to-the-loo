@@ -1,3 +1,5 @@
+//This displays the bathroom list icon in the icon bar.
+
 'use strict';
 
 var React = require('react-native');

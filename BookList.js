@@ -1,3 +1,5 @@
+//This componenet is used to render a listview of places from teh places model.
+
 'use strict';
  
 var Parse = require('parse/react-native');
@@ -60,6 +62,7 @@ var styles = StyleSheet.create({
    }
 });
  
+//Setting the dataSource as a row
 class PlaceList extends Component {
     // mixins: [ParseReact.Mixin]
     constructor(props) {
@@ -71,7 +74,7 @@ class PlaceList extends Component {
            })
         };
     }
-
+//This maps through the place model and clones the data into each row.
     componentDidMount() {
         var query = new Parse.Query('Place');
         query.find()
@@ -91,7 +94,7 @@ class PlaceList extends Component {
             passProps: {place: place}
        });
    }
-
+//Rending a loading view
     render() {
         if (this.state.isLoading) {
             return this.renderLoadingView();

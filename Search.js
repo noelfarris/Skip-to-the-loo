@@ -1,3 +1,5 @@
+//this routes the app to the mapPlaces componenet when the map icon is selected in the tab bar.
+
 'use strict';
  
 var React = require('react-native');

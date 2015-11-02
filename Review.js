@@ -1,3 +1,5 @@
+//Component for reviewing places
+
 var React = require('react-native');
 var StarRating = require('./StarRating');
 var Parse = require('parse/react-native');
@@ -20,7 +22,7 @@ var Review = React.createClass({
       value: 0,
     };
   },
-
+//function to save review to parse
 submitReview() {
     var placeID = this.props.place.id;
     var targetPlaceModel = new PlaceModel({objectId: placeID})
