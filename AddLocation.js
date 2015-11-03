@@ -15,7 +15,8 @@ var {
   Text,
   TextInput,
   View,
-  ActivityIndicatorIOS
+  ActivityIndicatorIOS,
+  Image
 } = React;
 
 var regionText = {
@@ -194,8 +195,18 @@ var MapPlaces = React.createClass({
     },
 
     render() {
+      console.log(this.state.mapRegionInput);
+      var annotations = this.state.annotations || [];
+      if(this.state.mapRegionInput){
+        annotations = annotations.slice(0);
+        annotations.push({
+          longitude: this.state.mapRegionInput.longitude,
+          latitude: this.state.mapRegionInput.latitude,
+          title: 'Center Pin'
+        })
+      }
+      console.log(annotations);
         var MapSearch = this.GooglePlacesAutocomplete;
-        console.log(this.state.mapRegion);
         return (
             <View style={styles.view}>
             <MapSearch />
@@ -204,9 +215,10 @@ var MapPlaces = React.createClass({
                 onRegionChange={this._onRegionChange}
                 onRegionChangeComplete={this._onRegionChangeComplete}
                 region={this.state.mapRegion || undefined}
-                annotations={this.state.locations || undefined}
+                annotations={annotations || undefined}
                 showsUserLocation={true}
             />
+            <Image style={styles.centerPin} source={{uri: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'}} />
             <MapRegionInput
                 onChange={this._onRegionInputChanged}
                 region={this.state.mapRegionInput || undefined}
@@ -219,11 +231,12 @@ var MapPlaces = React.createClass({
     return [{
       longitude: region.longitude,
       latitude: region.latitude,
-      title: 'Places',
+      title: 'You are here',
     }];
   },
 
   _onRegionChange(region) {
+    // console.log(region);
     this.setState({
       mapRegionInput: region,
     });
@@ -279,6 +292,13 @@ var styles = StyleSheet.create({
     borderColor: '#aaaaaa',
     fontSize: 13,
     padding: 4,
+  },
+  centerPin: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50
   },
   changeButton: {
     alignSelf: 'center',

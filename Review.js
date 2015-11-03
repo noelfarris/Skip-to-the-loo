@@ -6,6 +6,7 @@ var Parse = require('parse/react-native');
 var Button = require('react-native-button');
 var ReviewModel = require('./ReviewModel');
 var PlaceModel = require('./PlaceModel');
+var BookList = require('./BookList');
 
 
 var {
@@ -13,7 +14,8 @@ var {
   Text,
   StyleSheet,
   View,
-  TextInput
+  TextInput,
+  AlertIOS
 } = React;
 
 var Review = React.createClass({
@@ -22,6 +24,7 @@ var Review = React.createClass({
       value: 0,
     };
   },
+
 //function to save review to parse
 submitReview() {
     var placeID = this.props.place.id;
@@ -36,6 +39,7 @@ submitReview() {
     console.log(this.props.place.id);
     console.log(newReview.get('placeID'));
     newReview.save();
+    this.props.navigator.pop();
   },
 
   render() {
@@ -55,7 +59,14 @@ submitReview() {
         />
         <Button
           style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}}
-          onPress={this.submitReview}
+          onPress={() => AlertIOS.alert(
+            'Urine business',
+            'Are you sure about submitting?',
+            [
+              {text: 'Yes', onPress: () => this.submitReview()},
+              {text: 'Cancel', onPress: () => this.props.navigator.pop()},
+            ]
+          )}
           >
           Submit
         </Button>
@@ -67,6 +78,14 @@ submitReview() {
 var styles = StyleSheet.create({
 	container: {
     justifyContent: 'flex-start'
+  },
+  wrapper: {
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  button: {
+    backgroundColor: '#eeeeee',
+    padding: 10,
   },
   textTop: {
         flex: 1,

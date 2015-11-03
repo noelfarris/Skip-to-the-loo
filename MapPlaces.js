@@ -142,60 +142,62 @@ var MapPlaces = React.createClass({
 	},
 //here is where the search city functionality is added.
 	componentWillMount() {
-				this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
-					placeholder: 'Search',
-					minLength: 2, // minimum length of text to search 
-					autoFocus: true,
-					fetchDetails: true,
-					onPress: this._onSearchComplete,
-					getDefaultValue() {
-						return ''; // text input default value 
-					},
-					query: {
-						// available options: https://developers.google.com/places/web-service/autocomplete 
-						key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
-						language: 'en', // language of the results 
-						types: '(cities)', // default: 'geocode' 
-					},
-					styles: {
-						description: {
-							fontWeight: 'bold',
-						},
-					}
-				});  
-				var query = new Parse.Query('Place');
-					query.find().then(
-						(locations) => {
-								console.log(locations);
-								var places = locations.map((place) => {
-										console.log(place);
-										return {
-														latitude: place.get('location').latitude, 
-														longitude: place.get('location').longitude,
-														title: place.get('title'),
-														subtitle: (place.get('rating')).toString() + ' Loo Rolls',
-														hasRightCallout: true,
-														onRightCalloutPress: (() => {
-															this.props.navigator.push({
-																	title: place.get('title'),
-																	component: PlaceDetail,
-																	passProps: {place: place}
-															})
-													})
-												};
-								});
-								//this.setState({annotations: placeLatlng});
-								this.setState({locations: places});
-						},
-						(err) => {
-								console.log(err);
-						}
-						);
-		},
+    this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
+        placeholder: 'Search',
+        minLength: 2, // minimum length of text to search 
+        autoFocus: true,
+        fetchDetails: true,
+        onPress: this._onSearchComplete,
+        getDefaultValue() {
+            return ''; // text input default value 
+        },
+        query: {
+            // available options: https://developers.google.com/places/web-service/autocomplete 
+            key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
+            language: 'en', // language of the results 
+            types: '(cities)', // default: 'geocode' 
+        },
+        styles: {
+            description: {
+                fontWeight: 'bold',
+            },
+        }
+    });
+    var query = new Parse.Query('Place');
+    query.find().then(
+        (locations) => {
+            console.log(locations);
+            var places = locations.map((place) => {
+                console.log(place);
+                return {
+                    latitude: place.get('location').latitude,
+                    longitude: place.get('location').longitude,
+                    title: place.get('title'),
+                    subtitle: (place.get('rating')).toString() + ' Loo Rolls',
+                    hasRightCallout: true,
+                    onRightCalloutPress: (() => {
+                        this.props.navigator.push({
+                            title: place.get('title'),
+                            component: PlaceDetail,
+                            passProps: {
+                                place: place
+                            }
+                        })
+                    })
+                };
+            });
+            this.setState({
+                locations: places
+            });
+        }, (err) => {
+            console.log(err);
+        }
+    );
+},
+
 
 		render() {
 				var MapSearch = this.GooglePlacesAutocomplete;
-				console.log(this.state.mapRegion);
 				return (
 						<View style={styles.view}>
 						<MapSearch />

@@ -89,9 +89,9 @@ class PlaceDetail extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var query = new Parse.Query('Review');
-        query.equalTo('placeID', this.props.place)
+        query.equalTo('placeID', this.props.place).descending('createdAt')
         query.find()
         .then((results) => {
             console.log('GOT REVIEWS')
@@ -136,6 +136,8 @@ class PlaceDetail extends Component {
                 dataSource={this.state.dataSource}
                 renderRow={this.renderReview.bind(this)}
                 style={styles.listView}
+                initialListSize={5}
+                scrollEnabled={false}
             />
             </View>
         );
