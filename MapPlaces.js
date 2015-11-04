@@ -6,6 +6,7 @@ var React = require('react-native');
 var Parse = require('parse/react-native');
 var PlaceModel = require('./PlaceModel');
 var PlaceDetail = require('./PlaceDetail');
+var getLocation = require('./location.png');
 // var MapSearch = require('./MapSearch');
 
 
@@ -14,6 +15,8 @@ var {
 	StyleSheet,
 	Text,
 	TextInput,
+	Image,
+	TouchableHighlight,
 	View,
 	ActivityIndicatorIOS
 } = React;
@@ -131,69 +134,69 @@ var MapRegionInput = React.createClass({
 
 var MapPlaces = React.createClass({
 
-	getInitialState() {
-		return {
-			mapRegion: null,
-			mapRegionInput: null,
-			locations: [],
-			annotations: null,
-			isFirstLoad: true,
-		};
-	},
-//here is where the search city functionality is added.
-	componentWillMount() {
-    this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
-        placeholder: 'Search',
-        minLength: 2, // minimum length of text to search 
-        autoFocus: true,
-        fetchDetails: true,
-        onPress: this._onSearchComplete,
-        getDefaultValue() {
-            return ''; // text input default value 
-        },
-        query: {
-            // available options: https://developers.google.com/places/web-service/autocomplete 
-            key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
-            language: 'en', // language of the results 
-            types: '(cities)', // default: 'geocode' 
-        },
-        styles: {
-            description: {
-                fontWeight: 'bold',
-            },
-        }
-    });
-    var query = new Parse.Query('Place');
-    query.find().then(
-        (locations) => {
-            console.log(locations);
-            var places = locations.map((place) => {
-                console.log(place);
-                return {
-                    latitude: place.get('location').latitude,
-                    longitude: place.get('location').longitude,
-                    title: place.get('title'),
-                    subtitle: 'Loo Rolls',
-                    hasRightCallout: true,
-                    onRightCalloutPress: (() => {
-                        this.props.navigator.push({
-                            title: place.get('title'),
-                            component: PlaceDetail,
-                            passProps: {
-                                place: place
-                            }
-                        })
-                    })
-                };
-            });
-            this.setState({
-                locations: places
-            });
-        }, (err) => {
-            console.log(err);
-        }
-    );
-},
+						getInitialState() {
+										return {
+												mapRegion: null,
+												mapRegionInput: null,
+												locations: [],
+												annotations: null,
+												isFirstLoad: true,
+										};
+								},
+								//here is where the search city functionality is added.
+								componentWillMount() {
+										this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
+												placeholder: 'Search',
+												minLength: 2, // minimum length of text to search 
+												autoFocus: true,
+												fetchDetails: true,
+												onPress: this._onSearchComplete,
+												getDefaultValue() {
+														return ''; // text input default value 
+												},
+												query: {
+														// available options: https://developers.google.com/places/web-service/autocomplete 
+														key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
+														language: 'en', // language of the results 
+														types: '(cities)', // default: 'geocode' 
+												},
+												styles: {
+														description: {
+																fontWeight: 'bold',
+														},
+												}
+										});
+										var query = new Parse.Query('Place');
+										query.find().then(
+												(locations) => {
+														console.log(locations);
+														var places = locations.map((place) => {
+																console.log(place);
+																return {
+																		latitude: place.get('location').latitude,
+																		longitude: place.get('location').longitude,
+																		title: place.get('title'),
+																		subtitle: 'Loo Rolls',
+																		hasRightCallout: true,
+																		onRightCalloutPress: (() => {
+																				this.props.navigator.push({
+																						title: place.get('title'),
+																						component: PlaceDetail,
+																						passProps: {
+																								place: place
+																						}
+																				})
+																		})
+																};
+														});
+														this.setState({
+																locations: places
+														});
+												}, (err) => {
+														console.log(err);
+												}
+										);
+								},
 
 
 		render() {
@@ -209,6 +212,9 @@ var MapPlaces = React.createClass({
 								annotations={this.state.locations || undefined}
 								showsUserLocation={true}
 						/>
+						<TouchableHighlight onPress={this._onPressButton}>
+						<Image source={getLocation} style={styles.location} />
+						</TouchableHighlight>
 						<MapRegionInput
 								onChange={this._onRegionInputChanged}
 								region={this.state.mapRegionInput || undefined}
@@ -263,35 +269,44 @@ var MapPlaces = React.createClass({
 });
 
 var styles = StyleSheet.create({
-		view: {
-				paddingTop: 65,
-		},
-	map: {
-		height: 512,
-		marginTop: -33
-	},
-	row: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-	},
-	textInput: {
-		width: 150,
-		height: 20,
-		borderWidth: 0.5,
-		borderColor: '#aaaaaa',
-		fontSize: 13,
-		padding: 4,
-	},
-	changeButton: {
-		alignSelf: 'center',
-		marginTop: 5,
-		padding: 3,
-		borderWidth: 0.5,
-		borderColor: '#777777',
-	},
+    view: {
+        paddingTop: 65,
+    },
+    location: {
+        position: 'absolute',
+        height: 30,
+        width: 30,
+        marginTop: -45,
+        marginLeft: 10
+    },
+    map: {
+        height: 512,
+        marginTop: -33
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    textInput: {
+        width: 150,
+        height: 20,
+        borderWidth: 0.5,
+        borderColor: '#aaaaaa',
+        fontSize: 13,
+        padding: 4,
+    },
+    changeButton: {
+        alignSelf: 'center',
+        marginTop: 5,
+        padding: 3,
+        borderWidth: 0.5,
+        borderColor: '#777777',
+    },
 });
 
 module.exports = MapPlaces;
+
+
 
 // exports.displayName = (undefined: ?string);
 // exports.title = '<MapView>';
