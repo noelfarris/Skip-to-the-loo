@@ -173,7 +173,7 @@ var MapPlaces = React.createClass({
                     latitude: place.get('location').latitude,
                     longitude: place.get('location').longitude,
                     title: place.get('title'),
-                    subtitle: (place.get('rating')).toString() + ' Loo Rolls',
+                    subtitle: 'Loo Rolls',
                     hasRightCallout: true,
                     onRightCalloutPress: (() => {
                         this.props.navigator.push({
@@ -267,7 +267,7 @@ var styles = StyleSheet.create({
 				paddingTop: 65,
 		},
 	map: {
-		height: 450,
+		height: 512,
 		marginTop: -33
 	},
 	row: {

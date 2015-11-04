@@ -4,7 +4,8 @@ var React = require('react-native');
 var Parse = require('parse/react-native');
 var Featured = require('./Featured');
 var Search = require('./Search');
-var AddLocation = require('./AddLocation')
+var AddLocationTab = require('./AddLocationTab');
+var add = require('./add.png');
 
 
 var {
@@ -40,13 +41,13 @@ class AwesomeProject extends Component {
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     selected={this.state.selectedTab === 'addlocation'}
-                    icon={{uri:'contacts'}}
+                    icon={add}
                     onPress={() => {
                         this.setState({
                             selectedTab: 'addlocation'
                         });
                     }}>
-                    <AddLocation/>
+                    <AddLocationTab/>
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     selected={this.state.selectedTab === 'search'}

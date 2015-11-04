@@ -6,7 +6,9 @@ var React = require('react-native');
 var Parse = require('parse/react-native');
 var PlaceModel = require('./PlaceModel');
 var PlaceDetail = require('./PlaceDetail');
-
+var Button = require('react-native-button');
+var PlaceModel = require('./PlaceModel');
+var LocationDetails = require('./LocationDetails')
 
 
 var {
@@ -164,35 +166,28 @@ var MapPlaces = React.createClass({
             },
           }
         });  
-        var query = new Parse.Query('Place');
-          query.find().then(
-            (locations) => {
-                console.log(locations);
-                var places = locations.map((place) => {
-                    console.log(place);
-                    return {
-                            latitude: place.get('location').latitude, 
-                            longitude: place.get('location').longitude,
-                            title: place.get('title'),
-                            subtitle: (place.get('rating')).toString() + ' Loo Rolls',
-                            hasRightCallout: true,
-                            onRightCalloutPress: (() => {
-                              this.props.navigator.push({
-                                  title: place.get('title'),
-                                  component: PlaceDetail,
-                                  passProps: {place: place}
-                              })
-                          })
-                        };
-                });
-                //this.setState({annotations: placeLatlng});
-                this.setState({locations: places});
-            },
-            (err) => {
-                console.log(err);
-            }
-            );
     },
+
+  addPlace() {
+    console.log(this.state.mapRegionInput);
+    var newPlace = new PlaceModel({
+      title: this.refs.locationName.props.value,
+      address: this.refs.address.props.value,
+      location: new Parse.GeoPoint(this.state.mapRegionInput.latitude, this.state.mapRegionInput.longitude)
+    })
+    newPlace.save().then(() => {
+      console.log(this.props)
+      this.props.navigator.push({
+            title: newPlace.get('title'),
+            component: LocationDetails,
+            passProps: {
+              newPlace: newPlace
+            }
+          })
+        }) 
+  },
+
+  
 
     render() {
       console.log(this.state.mapRegionInput);
@@ -218,6 +213,24 @@ var MapPlaces = React.createClass({
                 annotations={annotations || undefined}
                 showsUserLocation={true}
             />
+            <Text>Drag map to place pin over location</Text>
+            <Text>Name</Text>
+            <TextInput ref="locationName"
+              style={styles.textInput}
+              onChangeText={(text) => this.setState({text})}
+              value={this.state.text}
+            />
+            <Text>Address</Text>
+            <TextInput ref="address"
+              style={styles.textInput}
+              onChangeText={(text2) => this.setState({text2})}
+              value={this.state.text2}
+            />
+            <Button
+              style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5, marginLeft: 10}}
+              onPress={() => this.addPlace()}>
+              Next
+            </Button>
             <Image style={styles.centerPin} source={{uri: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'}} />
             <MapRegionInput
                 onChange={this._onRegionInputChanged}
@@ -278,7 +291,7 @@ var styles = StyleSheet.create({
         paddingTop: 65,
     },
   map: {
-    height: 450,
+    height: 380,
     marginTop: -33
   },
   row: {

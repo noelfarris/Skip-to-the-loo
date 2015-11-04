@@ -25,8 +25,8 @@ var StarRating = React.createClass({
     return {
       maxRating: 5,
       starSize: {
-        width: 40,
-        height: 40
+        width: 30,
+        height: 30
       },
       starOn: require('./star.png'),
       starOff: require('./star-off.png')
@@ -66,8 +66,8 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
   }
 });
 

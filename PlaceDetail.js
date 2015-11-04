@@ -116,6 +116,14 @@ class PlaceDetail extends Component {
         var imageURI = (typeof place.get('imageLinks') !== 'undefined') ? place.get('imageLinks') : '';
         var rating = (typeof place.get('rating') !== 'undefined') ? place.get('rating') : '';
         var address = (typeof place.get('address') !== 'undefined') ? place.get('address') : '';
+        var open = (typeof place.get('Open') !== 'undefined') ? place.get('Open') : '';
+        var close = (typeof place.get('Close') !== 'undefined') ? place.get('Close') : '';
+        var pub;
+        if(place.get('Public') === true) {
+            pub = 'Yes'
+        } else {
+            pub = 'No'
+        };
         // var sum = {review.get('cleanliness')}.reduce(function(a, b) { return a + b; });
         // var avg = sum / {review.get('cleanliness')}.length;
         return (
@@ -127,7 +135,9 @@ class PlaceDetail extends Component {
                     onPress={() => this.showPlaceDetail(place)}>
                     Add Review
                 </Button>
-                <Text style={styles.rating}>{rating} Loo Rolls</Text>
+                <Text style={styles.rating}> Loo Rolls</Text>
+                <Text style={styles.address}>Public: {pub}</Text>
+                <Text style={styles.address}>Hours: {open} - {close}</Text>
                 <Text style={styles.address}>{address}</Text>
             </View>
             <Text style={styles.address}>Reviews</Text>
