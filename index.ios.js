@@ -5,8 +5,9 @@ var Parse = require('parse/react-native');
 var Featured = require('./Featured');
 var Search = require('./Search');
 var AddLocationTab = require('./AddLocationTab');
-var add = require('./add.png');
-
+var add = require('./Plus.png');
+var treasure = require('./Treasure.png');
+var list = require('./List.png')
 
 var {
     AppRegistry,
@@ -30,8 +31,9 @@ class AwesomeProject extends Component {
         return (
             <TabBarIOS selectedTab={this.state.selectedTab}>
                 <TabBarIOS.Item
+                    title='Bathroom List'
                     selected={this.state.selectedTab === 'featured'}
-                    icon={{uri:'featured'}}
+                    icon={list}
                     onPress={() => {
                         this.setState({
                             selectedTab: 'featured'
@@ -40,6 +42,7 @@ class AwesomeProject extends Component {
                     <Featured/>
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
+                    title='Add Location'
                     selected={this.state.selectedTab === 'addlocation'}
                     icon={add}
                     onPress={() => {
@@ -50,8 +53,9 @@ class AwesomeProject extends Component {
                     <AddLocationTab/>
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
+                    title='Map'
                     selected={this.state.selectedTab === 'search'}
-                    icon={{uri:'search'}}
+                    icon={treasure}
                     onPress={() => {
                         this.setState({
                             selectedTab: 'search'

@@ -11,6 +11,7 @@ var StarRating = require('./StarRating');
  
 var {
     StyleSheet,
+    ScrollView,
     Text,
     View,
     Component,
@@ -22,11 +23,11 @@ var {
  
 var styles = StyleSheet.create({
     container: {
-        marginTop: 75,
         alignItems: 'flex-start',
         marginBottom: 75
     },
     image: {
+        marginTop: 10,
         width: 107,
         height: 165,
         padding: 10,
@@ -91,7 +92,7 @@ class PlaceDetail extends Component {
 
     componentWillMount() {
         var query = new Parse.Query('Review');
-        query.equalTo('placeID', this.props.place).descending('createdAt')
+        query.equalTo('placeID', this.props.place).descending('createdAt').limit(5)
         query.find()
         .then((results) => {
             console.log('GOT REVIEWS')
@@ -127,6 +128,7 @@ class PlaceDetail extends Component {
         // var sum = {review.get('cleanliness')}.reduce(function(a, b) { return a + b; });
         // var avg = sum / {review.get('cleanliness')}.length;
         return (
+            <ScrollView>
             <View>
             <View style={styles.container}>
                 <Image style={styles.image} source={{uri: imageURI}} />
@@ -140,7 +142,7 @@ class PlaceDetail extends Component {
                 <Text style={styles.address}>Hours: {open} - {close}</Text>
                 <Text style={styles.address}>{address}</Text>
             </View>
-            <Text style={styles.address}>Reviews</Text>
+            <Text style={styles.address}>Newest Reviews</Text>
             <ListView
                 automaticallyAdjustContentInsets={false}
                 dataSource={this.state.dataSource}
@@ -150,6 +152,7 @@ class PlaceDetail extends Component {
                 scrollEnabled={false}
             />
             </View>
+            </ScrollView>
         );
             
     }

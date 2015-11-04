@@ -72,17 +72,32 @@ class PlaceList extends Component {
 				};
 		}
 
+		getInitialState() {
+    		return {
+      		initialPosition: 'unknown',
+      		lastPosition: 'unknown',
+    		};
+  		}
+
 		componentDidMount() {
-				var query = new Parse.Query('Place');
-				query.find()
-				.then((results) => {
-						console.log('FINISHED GRABBING RESULTS');
-						this.setState({
-								dataSource: this.state.dataSource.cloneWithRows(results),
-								isLoading: false
-						});
-				})
-	 }
+			var query = new Parse.Query('Place');
+			query.find()
+			.then((results) => {
+					console.log('FINISHED GRABBING RESULTS');
+					this.setState({
+							dataSource: this.state.dataSource.cloneWithRows(results),
+							isLoading: false
+					});
+			})
+			navigator.geolocation.getCurrentPosition(
+      			(initialPosition) => this.setState({initialPosition}),
+      			(error) => alert(error.message),
+      			{enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    			);
+    			this.watchID = navigator.geolocation.watchPosition((lastPosition) => {
+      			this.setState({lastPosition});
+    			});
+	 			}
 
 	 showPlaceDetail(place) {
 				this.props.navigator.push({
