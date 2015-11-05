@@ -85,6 +85,7 @@ class PlaceDetail extends Component {
     constructor(props) {
        super(props);
        this.state = {
+            results: [],
             isLoading: true,
             dataSource: new ListView.DataSource({
                rowHasChanged: (row1, row2) => row1 !== row2
@@ -92,21 +93,25 @@ class PlaceDetail extends Component {
         };
     }
 
+    
     componentWillMount() {
         var query = new Parse.Query('Review');
-        query.equalTo('placeID', this.props.place).descending('createdAt').limit(5)
+        query.equalTo('placeID', this.props.place).descending('createdAt')
         query.find()
         .then((results) => {
             console.log('GOT REVIEWS')
             console.log(results);
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(results),
-                isLoading: false
+                isLoading: false,
+                results: results
             });
         })
     }
 
-     showPlaceDetail(place) {
+        
+
+    showPlaceDetail(place) {
         this.props.navigator.push({
             title: place.get('title'),
             component: Review,
@@ -115,6 +120,31 @@ class PlaceDetail extends Component {
    }
 
     render(review) {
+        var overalls = this.state.results.map((result) => {
+            return result.get('overall');
+        })
+        console.log(overalls);
+        var overallReview = 0;
+        for(var i = 0; i < overalls.length; i++) {
+            overallReview += overalls[i]; 
+        };
+        var reviewOverall = overallReview/overalls.length;
+        var clean = this.state.results.map((result) => {
+            return result.get('cleanliness');
+        });
+        var totalClean = 0;
+        for(var j = 0; j < clean.length; j++) {
+            totalClean += clean[j];
+        };
+        var avgClean = totalClean/clean.length;
+        var privacy = this.state.results.map((result) => {
+            return result.get('privacy');
+        });
+        var totalPrivacy = 0
+        for(var k = 0; k < privacy.length; k++) {
+            totalPrivacy += privacy[k];
+        }
+        var avgPrivacy = totalPrivacy/privacy.length;
         var place = this.props.place;
         var imageURI = (typeof place.get('imageLinks') !== 'undefined') ? place.get('imageLinks') : '';
         var rating = (typeof place.get('rating') !== 'undefined') ? place.get('rating') : '';
@@ -134,7 +164,9 @@ class PlaceDetail extends Component {
             <View>
             <View style={styles.container}>
                 <Image style={styles.image} source={{uri: imageURI}} />
-                <Text style={styles.rating}> Loo Rolls</Text>
+                <Text style={styles.rating}>{reviewOverall.toFixed(1)} Overall Loos</Text>
+                <Text style={styles.rating}>{avgClean.toFixed(1)} Cleanliness Loos</Text>
+                <Text style={styles.rating}>{avgPrivacy.toFixed(1)} Privacy Loos</Text>
                 <Text style={styles.address}>Public: {pub}</Text>
                 <Text style={styles.address}>Hours: {open} - {close}</Text>
                 <Text style={styles.address}>{address}</Text>

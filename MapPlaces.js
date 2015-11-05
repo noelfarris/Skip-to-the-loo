@@ -11,261 +11,307 @@ var getLocation = require('./location.png');
 
 
 var {
-	MapView,
-	StyleSheet,
-	Text,
-	TextInput,
-	Image,
-	TouchableHighlight,
-	View,
-	ActivityIndicatorIOS
+    MapView,
+    StyleSheet,
+    Text,
+    TextInput,
+    Image,
+    TouchableHighlight,
+    View,
+    ActivityIndicatorIOS
 } = React;
 
 var regionText = {
-	latitude: '0',
-	longitude: '0',
-	latitudeDelta: '0',
-	longitudeDelta: '0',
+    latitude: '0',
+    longitude: '0',
+    latitudeDelta: '0',
+    longitudeDelta: '0',
 };
 
 var MapRegionInput = React.createClass({
 
-	getInitialState: function() {
-		return {
-			region: {
-				latitude: 0,
-				longitude: 0,
-				latitudeDelta: 0,
-				longitudeDelta: 0,
-			}
-		};
-	},
+    getInitialState: function() {
+        return {
+            region: {
+                latitude: 0,
+                longitude: 0,
+                latitudeDelta: 0,
+                longitudeDelta: 0,
+            }
+        };
+    },
 
-	componentWillReceiveProps: function(nextProps) {
-		this.setState({
-			region: nextProps.region || this.getInitialState().region
-		});
-	},
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            region: nextProps.region || this.getInitialState().region
+        });
+    },
 
-	render: function() {
-		var region = this.state.region || this.getInitialState().region;
-		return (
-			<View>
-				<View style={styles.row}>
-					<Text>
-						{'Latitude'}
-					</Text>
-					<TextInput
-						value={'' + region.latitude}
-						style={styles.textInput}
-						onChange={this._onChangeLatitude}
-						selectTextOnFocus={true}
-					/>
-				</View>
-				<View style={styles.row}>
-					<Text>
-						{'Longitude'}
-					</Text>
-					<TextInput
-						value={'' + region.longitude}
-						style={styles.textInput}
-						onChange={this._onChangeLongitude}
-						selectTextOnFocus={true}
-					/>
-				</View>
-				<View style={styles.row}>
-					<Text>
-						{'Latitude delta'}
-					</Text>
-					<TextInput
-						value={'' + region.latitudeDelta}
-						style={styles.textInput}
-						onChange={this._onChangeLatitudeDelta}
-						selectTextOnFocus={true}
-					/>
-				</View>
-				<View style={styles.row}>
-					<Text>
-						{'Longitude delta'}
-					</Text>
-					<TextInput
-						value={'' + region.longitudeDelta}
-						style={styles.textInput}
-						onChange={this._onChangeLongitudeDelta}
-						selectTextOnFocus={true}
-					/>
-				</View>
-				<View style={styles.changeButton}>
-					<Text onPress={this._change}>
-						{'Change'}
-					</Text>
-				</View>
-			</View>
-		);
-	},
+    render: function() {
+        var region = this.state.region || this.getInitialState().region;
+        return ( 
+        	<View>
+            <View style = {styles.row}>
+            <Text>{'Latitude'}</Text> 
+            <TextInput value = {
+                '' + region.latitude
+            }
+            style = {
+                styles.textInput
+            }
+            onChange = {
+                this._onChangeLatitude
+            }
+            selectTextOnFocus = {
+                true
+            }
+            /> < /View> < View style = {
+                styles.row
+            } >
+            < Text > {
+                'Longitude'
+            } < /Text> < TextInput value = {
+                '' + region.longitude
+            }
+            style = {
+                styles.textInput
+            }
+            onChange = {
+                this._onChangeLongitude
+            }
+            selectTextOnFocus = {
+                true
+            }
+            /> < /View> < View style = {
+                styles.row
+            } >
+            < Text > {
+                'Latitude delta'
+            } < /Text> < TextInput value = {
+                '' + region.latitudeDelta
+            }
+            style = {
+                styles.textInput
+            }
+            onChange = {
+                this._onChangeLatitudeDelta
+            }
+            selectTextOnFocus = {
+                true
+            }
+            /> < /View> < View style = {
+                styles.row
+            } >
+            < Text > {
+                'Longitude delta'
+            } < /Text> < TextInput value = {
+                '' + region.longitudeDelta
+            }
+            style = {
+                styles.textInput
+            }
+            onChange = {
+                this._onChangeLongitudeDelta
+            }
+            selectTextOnFocus = {
+                true
+            }
+            /> < /View> < View style = {
+                styles.changeButton
+            } >
+            < Text onPress = {
+                this._change
+            } > {
+                'Change'
+            } < /Text> < /View> < /View>
+        );
+    },
 
-	_onChangeLatitude: function(e) {
-		regionText.latitude = e.nativeEvent.text;
-	},
+    _onChangeLatitude: function(e) {
+        regionText.latitude = e.nativeEvent.text;
+    },
 
-	_onChangeLongitude: function(e) {
-		regionText.longitude = e.nativeEvent.text;
-	},
+    _onChangeLongitude: function(e) {
+        regionText.longitude = e.nativeEvent.text;
+    },
 
-	_onChangeLatitudeDelta: function(e) {
-		regionText.latitudeDelta = e.nativeEvent.text;
-	},
+    _onChangeLatitudeDelta: function(e) {
+        regionText.latitudeDelta = e.nativeEvent.text;
+    },
 
-	_onChangeLongitudeDelta: function(e) {
-		regionText.longitudeDelta = e.nativeEvent.text;
-	},
+    _onChangeLongitudeDelta: function(e) {
+        regionText.longitudeDelta = e.nativeEvent.text;
+    },
 
-	_change: function() {
-		this.setState({
-			latitude: parseFloat(regionText.latitude),
-			longitude: parseFloat(regionText.longitude),
-			latitudeDelta: parseFloat(regionText.latitudeDelta),
-			longitudeDelta: parseFloat(regionText.longitudeDelta),
-		});
-		this.props.onChange(this.state.region);
-	},
+    _change: function() {
+        this.setState({
+            latitude: parseFloat(regionText.latitude),
+            longitude: parseFloat(regionText.longitude),
+            latitudeDelta: parseFloat(regionText.latitudeDelta),
+            longitudeDelta: parseFloat(regionText.longitudeDelta),
+        });
+        this.props.onChange(this.state.region);
+    },
 
 });
 
 var MapPlaces = React.createClass({
 
-						getInitialState() {
-										return {
-												mapRegion: null,
-												mapRegionInput: null,
-												locations: [],
-												annotations: null,
-												isFirstLoad: true,
-										};
-								},
-								//here is where the search city functionality is added.
-								componentWillMount() {
-										this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
-												placeholder: 'Search',
-												minLength: 2, // minimum length of text to search 
-												autoFocus: true,
-												fetchDetails: true,
-												onPress: this._onSearchComplete,
-												getDefaultValue() {
-														return ''; // text input default value 
-												},
-												query: {
-														// available options: https://developers.google.com/places/web-service/autocomplete 
-														key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
-														language: 'en', // language of the results 
-														types: '(cities)', // default: 'geocode' 
-												},
-												styles: {
-														description: {
-																color: 'blue',
-																fontWeight: 'bold',
-														},
-												}
-										});
-										var query = new Parse.Query('Place');
-										query.find().then(
-												(locations) => {
-														console.log(locations);
-														var places = locations.map((place) => {
-																console.log(place);
-																return {
-																		latitude: place.get('location').latitude,
-																		longitude: place.get('location').longitude,
-																		title: place.get('title'),
-																		subtitle: 'Loo Rolls',
-																		hasRightCallout: true,
-																		onRightCalloutPress: (() => {
-																				this.props.navigator.push({
-																						title: place.get('title'),
-																						component: PlaceDetail,
-																						passProps: {
-																								place: place
-																						}
-																				})
-																		})
-																};
-														});
-														this.setState({
-																locations: places
-														});
-												}, (err) => {
-														console.log(err);
-												}
-										);
-								},
+    getInitialState() {
+            return {
+                mapRegion: null,
+                mapRegionInput: null,
+                locations: [],
+                annotations: null,
+                isFirstLoad: true,
+            };
+        },
+        //here is where the search city functionality is added.
+        componentWillMount() {
+            this.GooglePlacesAutocomplete = require('react-native-google-places-autocomplete').create({
+                placeholder: 'Search',
+                minLength: 2, // minimum length of text to search 
+                autoFocus: true,
+                fetchDetails: true,
+                onPress: this._onSearchComplete,
+                getDefaultValue() {
+                    return ''; // text input default value 
+                },
+                query: {
+                    // available options: https://developers.google.com/places/web-service/autocomplete 
+                    key: 'AIzaSyBQHyofGNKblmccRnELYtzoR2ZHi3AfWQA',
+                    language: 'en', // language of the results 
+                    types: '(cities)', // default: 'geocode' 
+                },
+                styles: {
+                    description: {
+                        color: 'blue',
+                        fontWeight: 'bold',
+                    },
+                }
+            });
+            var query = new Parse.Query('Place');
+            query.find().then(
+                (locations) => {
+                    console.log(locations);
+                    var places = locations.map((place) => {
+                        console.log(place);
+                        return {
+                            latitude: place.get('location').latitude,
+                            longitude: place.get('location').longitude,
+                            title: place.get('title'),
+                            subtitle: 'Loo Rolls',
+                            hasRightCallout: true,
+                            onRightCalloutPress: (() => {
+                                this.props.navigator.push({
+                                    title: place.get('title'),
+                                    component: PlaceDetail,
+                                    passProps: {
+                                        place: place
+                                    }
+                                })
+                            })
+                        };
+                    });
+                    this.setState({
+                        locations: places
+                    });
+                }, (err) => {
+                    console.log(err);
+                }
+            );
+        },
 
 
-		render() {
-				var MapSearch = this.GooglePlacesAutocomplete;
-				return (
-						<View style={styles.view}>
-						<MapSearch style={{backgroundColor: 'blue'}}/>
-						<MapView
-								style={styles.map}
-								onRegionChange={this._onRegionChange}
-								onRegionChangeComplete={this._onRegionChangeComplete}
-								region={this.state.mapRegion || undefined}
-								annotations={this.state.locations || undefined}
-								showsUserLocation={true}
-						/>
-						<TouchableHighlight onPress={this._onPressButton}>
-						<Image source={getLocation} style={styles.location} />
-						</TouchableHighlight>
-						<MapRegionInput
-								onChange={this._onRegionInputChanged}
-								region={this.state.mapRegionInput || undefined}
-						/>
-						</View>
-				);
-		},
+        render() {
+            var MapSearch = this.GooglePlacesAutocomplete;
+            return ( < View style = {
+                    styles.view
+                } >
+                < MapSearch style = {
+                    {
+                        backgroundColor: 'blue'
+                    }
+                }
+                /> < MapView style = {
+                    styles.map
+                }
+                onRegionChange = {
+                    this._onRegionChange
+                }
+                onRegionChangeComplete = {
+                    this._onRegionChangeComplete
+                }
+                region = {
+                    this.state.mapRegion || undefined
+                }
+                annotations = {
+                    this.state.locations || undefined
+                }
+                showsUserLocation = {
+                    true
+                }
+                /> < TouchableHighlight onPress = {
+                    this._onPressButton
+                } >
+                < Image source = {
+                    getLocation
+                }
+                style = {
+                    styles.location
+                }
+                /> < /TouchableHighlight> < MapRegionInput onChange = {
+                    this._onRegionInputChanged
+                }
+                region = {
+                    this.state.mapRegionInput || undefined
+                }
+                /> < /View>
+            );
+        },
 
-	_getAnnotations(region) {
-		return [{
-			longitude: region.longitude,
-			latitude: region.latitude,
-			title: 'Places',
-		}];
-	},
+        _getAnnotations(region) {
+            return [{
+                longitude: region.longitude,
+                latitude: region.latitude,
+                title: 'Places',
+            }];
+        },
 
-	_onRegionChange(region) {
-		this.setState({
-			mapRegionInput: region,
-		});
-	},
+        _onRegionChange(region) {
+            this.setState({
+                mapRegionInput: region,
+            });
+        },
 
-	_onRegionChangeComplete(region) {
-		if (this.state.isFirstLoad) {
-			this.setState({
-				mapRegionInput: region,
-				annotations: this._getAnnotations(region),
-				isFirstLoad: false,
-			});
-		}
-	},
+        _onRegionChangeComplete(region) {
+            if (this.state.isFirstLoad) {
+                this.setState({
+                    mapRegionInput: region,
+                    annotations: this._getAnnotations(region),
+                    isFirstLoad: false,
+                });
+            }
+        },
 
-	_onRegionInputChanged(region) {
-		this.setState({
-			mapRegion: region,
-			mapRegionInput: region,
-			annotations: this._getAnnotations(region),
-		});
-	},
+        _onRegionInputChanged(region) {
+            this.setState({
+                mapRegion: region,
+                mapRegionInput: region,
+                annotations: this._getAnnotations(region),
+            });
+        },
 
-	_onSearchComplete(data, details=null) {
-		console.log(data, details);
-		console.log('onSearchComplete');
-		this.setState({
-			mapRegion: {
-				latitude: details.geometry.location.lat,
-				longitude: details.geometry.location.lng,
-			}
-	})
-}
+        _onSearchComplete(data, details = null) {
+            console.log(data, details);
+            console.log('onSearchComplete');
+            this.setState({
+                mapRegion: {
+                    latitude: details.geometry.location.lat,
+                    longitude: details.geometry.location.lng,
+                }
+            })
+        }
 
 });
 
