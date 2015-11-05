@@ -47,7 +47,16 @@ submitReview() {
     this.props.navigator.pop();
   },
 
-  render() {
+  showPlaceDetail(targetPlaceModel) {
+    this.props.navigator.push({
+      component: Camera,
+      passProps: {
+        targetPlaceModel: targetPlaceModel
+      }
+    });
+  },
+
+  render(targetPlaceModel) {
     console.log(this.props);
     return (
       <View style={styles.container}>
@@ -68,7 +77,7 @@ submitReview() {
               onChangeText={(text2) => this.setState({text2})}
               value={this.state.text2}
             />
-        <Button style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}} >Add</Button>
+        <Button style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}} onPress={() => this.showPlaceDetail(targetPlaceModel)}>Add</Button>
         <StarRating ref="cleanliness" style={styles.container} />
         <Text style={styles.text}>Privacy</Text>
         <StarRating ref="privacy" style={styles.container} />
