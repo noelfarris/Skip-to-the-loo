@@ -5,6 +5,7 @@ var Button = require('react-native-button');
 var ReviewModel = require('./ReviewModel');
 var PlaceModel = require('./PlaceModel');
 var BookList = require('./BookList');
+var Camera = require('./Camera');
 
 
 var {
@@ -67,7 +68,7 @@ submitReview() {
               onChangeText={(text2) => this.setState({text2})}
               value={this.state.text2}
             />
-        <Text style={styles.text}>Cleanliness</Text>
+        <Button style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}} >Add</Button>
         <StarRating ref="cleanliness" style={styles.container} />
         <Text style={styles.text}>Privacy</Text>
         <StarRating ref="privacy" style={styles.container} />

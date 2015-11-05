@@ -58,7 +58,7 @@ submitReview() {
           value={this.state.text}
         />
         <Button
-          style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}}
+          style={{backgroundColor: '#A514CC', borderRadius: 10, color: 'white', padding: 5, marginLeft: 10}}
           onPress={() => AlertIOS.alert(
             'Urine business',
             'Are you sure about submitting?',

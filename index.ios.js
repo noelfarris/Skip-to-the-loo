@@ -12,7 +12,8 @@ var list = require('./List.png')
 var {
     AppRegistry,
     TabBarIOS,
-    Component
+    Component,
+    StyleSheet
    } = React;
 
 Parse.initialize("Ephd4kdFUPOAjPQLne3j0qrDTc9xEoVtInweFsjE", "ll31Fq7cizQDvbAniYNrbK8OHYncAM1FtmAbsjgx");
@@ -29,7 +30,7 @@ class AwesomeProject extends Component {
  
     render() {
         return (
-            <TabBarIOS selectedTab={this.state.selectedTab}>
+            <TabBarIOS tintColor="white" barTintColor="14CC88" selectedTab={this.state.selectedTab}>
                 <TabBarIOS.Item
                     title='Bathroom List'
                     selected={this.state.selectedTab === 'featured'}
@@ -53,6 +54,7 @@ class AwesomeProject extends Component {
                     <AddLocationTab/>
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
+                    style={styles.tabText}
                     title='Map'
                     selected={this.state.selectedTab === 'search'}
                     icon={treasure}
@@ -67,5 +69,10 @@ class AwesomeProject extends Component {
         );
     }
 }
+var styles = StyleSheet.create({
+  tabText: {
+    color: 'white',
+  }
+});
  
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

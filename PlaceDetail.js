@@ -27,11 +27,9 @@ var styles = StyleSheet.create({
         marginBottom: 75
     },
     image: {
-        marginTop: 10,
-        width: 107,
+        width: 375,
         height: 165,
         padding: 10,
-        marginLeft: 10
     },
     rating: {
         padding: 10,
@@ -75,7 +73,11 @@ var styles = StyleSheet.create({
     },
     listView: {
        backgroundColor: '#F5FCFF'
-   }
+   },
+    reviewbutton: {
+        color: '#A514CC',
+        borderRadius: 10
+    }
 });
  
 class PlaceDetail extends Component {
@@ -132,15 +134,15 @@ class PlaceDetail extends Component {
             <View>
             <View style={styles.container}>
                 <Image style={styles.image} source={{uri: imageURI}} />
-                <Button
-                    style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5, marginLeft: 10}}
-                    onPress={() => this.showPlaceDetail(place)}>
-                    Add Review
-                </Button>
                 <Text style={styles.rating}> Loo Rolls</Text>
                 <Text style={styles.address}>Public: {pub}</Text>
                 <Text style={styles.address}>Hours: {open} - {close}</Text>
                 <Text style={styles.address}>{address}</Text>
+                <Button
+                    style={{backgroundColor: '#A514CC', borderRadius: 10, color: 'white', padding: 5, marginLeft: 10}}
+                    onPress={() => this.showPlaceDetail(place)}>
+                    Add Review
+                </Button>
             </View>
             <Text style={styles.address}>Newest Reviews</Text>
             <ListView

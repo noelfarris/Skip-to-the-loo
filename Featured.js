@@ -21,6 +21,8 @@ class Featured extends Component {
     render() {
         return (
             <NavigatorIOS
+                barTintColor="14CC88"
+                titleTextColor="white"
                 style={styles.container}
                 initialRoute={{
             title: 'Bathroom List',
