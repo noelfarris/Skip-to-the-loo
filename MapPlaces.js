@@ -51,79 +51,27 @@ var MapRegionInput = React.createClass({
         var region = this.state.region || this.getInitialState().region;
         return ( 
         	<View>
-            <View style = {styles.row}>
-            <Text>{'Latitude'}</Text> 
-            <TextInput value = {
-                '' + region.latitude
-            }
-            style = {
-                styles.textInput
-            }
-            onChange = {
-                this._onChangeLatitude
-            }
-            selectTextOnFocus = {
-                true
-            }
-            /> < /View> < View style = {
-                styles.row
-            } >
-            < Text > {
-                'Longitude'
-            } < /Text> < TextInput value = {
-                '' + region.longitude
-            }
-            style = {
-                styles.textInput
-            }
-            onChange = {
-                this._onChangeLongitude
-            }
-            selectTextOnFocus = {
-                true
-            }
-            /> < /View> < View style = {
-                styles.row
-            } >
-            < Text > {
-                'Latitude delta'
-            } < /Text> < TextInput value = {
-                '' + region.latitudeDelta
-            }
-            style = {
-                styles.textInput
-            }
-            onChange = {
-                this._onChangeLatitudeDelta
-            }
-            selectTextOnFocus = {
-                true
-            }
-            /> < /View> < View style = {
-                styles.row
-            } >
-            < Text > {
-                'Longitude delta'
-            } < /Text> < TextInput value = {
-                '' + region.longitudeDelta
-            }
-            style = {
-                styles.textInput
-            }
-            onChange = {
-                this._onChangeLongitudeDelta
-            }
-            selectTextOnFocus = {
-                true
-            }
-            /> < /View> < View style = {
-                styles.changeButton
-            } >
-            < Text onPress = {
-                this._change
-            } > {
-                'Change'
-            } < /Text> < /View> < /View>
+                <View style = {styles.row}>
+                    <Text>{'Latitude'}</Text> 
+                    <TextInput value = {'' + region.latitude} style = {styles.textInput} onChange = {this._onChangeLatitude}
+                    selectTextOnFocus = {true}/> 
+                </View> 
+                <View style = {styles.row}>
+                    <Text>{'Longitude'}</Text> 
+                    <TextInput value = {'' + region.longitude} style = {styles.textInput} onChange = {this._onChangeLongitude} selectTextOnFocus = {true}/> 
+                </View> 
+                <View style = {styles.row}>
+                    <Text>{'Latitude delta'}</Text> 
+                    <TextInput value = {'' + region.latitudeDelta} style = {styles.textInput} onChange = {this._onChangeLatitudeDelta} selectTextOnFocus = {true}/> 
+                </View> 
+                <View style = {styles.row}>
+                    <Text> {'Longitude delta'} </Text> 
+                    <TextInput value = {'' + region.longitudeDelta} style = {styles.textInput} onChange = {this._onChangeLongitudeDelta} selectTextOnFocus = {true}/> 
+                </View> 
+                <View style = {styles.changeButton}>
+                    <Text onPress = {this._change}>{'Change'}</Text> 
+                </View> 
+            </View>
         );
     },
 
@@ -225,48 +173,22 @@ var MapPlaces = React.createClass({
 
         render() {
             var MapSearch = this.GooglePlacesAutocomplete;
-            return ( < View style = {
-                    styles.view
-                } >
-                < MapSearch style = {
-                    {
-                        backgroundColor: 'blue'
-                    }
-                }
-                /> < MapView style = {
-                    styles.map
-                }
-                onRegionChange = {
-                    this._onRegionChange
-                }
-                onRegionChangeComplete = {
-                    this._onRegionChangeComplete
-                }
-                region = {
-                    this.state.mapRegion || undefined
-                }
-                annotations = {
-                    this.state.locations || undefined
-                }
-                showsUserLocation = {
-                    true
-                }
-                /> < TouchableHighlight onPress = {
-                    this._onPressButton
-                } >
-                < Image source = {
-                    getLocation
-                }
-                style = {
-                    styles.location
-                }
-                /> < /TouchableHighlight> < MapRegionInput onChange = {
-                    this._onRegionInputChanged
-                }
-                region = {
-                    this.state.mapRegionInput || undefined
-                }
-                /> < /View>
+            return ( 
+                <View style = {styles.view}>
+                <MapSearch style = {{backgroundColor: 'blue'}}/> 
+                <MapView style = {styles.map}
+                        onRegionChange = {this._onRegionChange}
+                        onRegionChangeComplete = {this._onRegionChangeComplete}
+                        region = {this.state.mapRegion || undefined}
+                        annotations = {this.state.locations || undefined}
+                        showsUserLocation = {true}/> 
+                <TouchableHighlight onPress = {this._onPressButton}>
+                <Image source = {getLocation}
+                    style = {styles.location}/> 
+                </TouchableHighlight> 
+                <MapRegionInput onChange = {this._onRegionInputChanged}
+                    region = {this.state.mapRegionInput || undefined}/> 
+                </View>
             );
         },
 
