@@ -152,7 +152,6 @@ class PlaceList extends Component {
     		var d = R * c; // Distance in km
     		return d* 0.62137;
 		};
-		console.log(d);
 		/** Converts numeric degrees to radians */
 		if (typeof(Number.prototype.toRad) === "undefined") {
     		Number.prototype.toRad = function() {

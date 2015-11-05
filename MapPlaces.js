@@ -162,6 +162,7 @@ var MapPlaces = React.createClass({
 												},
 												styles: {
 														description: {
+																color: 'blue',
 																fontWeight: 'bold',
 														},
 												}
@@ -203,7 +204,7 @@ var MapPlaces = React.createClass({
 				var MapSearch = this.GooglePlacesAutocomplete;
 				return (
 						<View style={styles.view}>
-						<MapSearch />
+						<MapSearch style={{backgroundColor: 'blue'}}/>
 						<MapView
 								style={styles.map}
 								onRegionChange={this._onRegionChange}

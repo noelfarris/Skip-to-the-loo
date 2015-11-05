@@ -213,24 +213,26 @@ var MapPlaces = React.createClass({
                 annotations={annotations || undefined}
                 showsUserLocation={true}
             />
-            <Text>Drag map to place pin over location</Text>
-            <Text>Name</Text>
-            <TextInput ref="locationName"
-              style={styles.textInput}
-              onChangeText={(text) => this.setState({text})}
-              value={this.state.text}
-            />
-            <Text>Address</Text>
-            <TextInput ref="address"
-              style={styles.textInput}
-              onChangeText={(text2) => this.setState({text2})}
-              value={this.state.text2}
-            />
-            <Button
-              style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5, marginLeft: 10}}
-              onPress={() => this.addPlace()}>
-              Next
-            </Button>
+            <View>
+              <Text>Drag map to place pin over location</Text>
+              <Text>Name</Text>
+              <TextInput ref="locationName"
+                style={styles.textInput}
+                onChangeText={(text) => this.setState({text})}
+                value={this.state.text}
+              />
+              <Text>Address</Text>
+              <TextInput ref="address"
+                style={styles.textInput}
+                onChangeText={(text2) => this.setState({text2})}
+                value={this.state.text2}
+              />
+              <Button
+                style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5, marginLeft: 10}}
+                onPress={() => this.addPlace()}>
+                Next
+              </Button>
+            </View>
             <Image style={styles.centerPin} source={{uri: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'}} />
             <MapRegionInput
                 onChange={this._onRegionInputChanged}
