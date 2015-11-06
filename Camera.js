@@ -24,13 +24,6 @@ var cameraApp = React.createClass({
         onBarCodeRead={this._onBarCodeRead}
         type={this.state.cameraType}
       >
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js{'\n'}
-          Press Cmd+R to reload
-        </Text>
         <TouchableHighlight onPress={this._switchCamera}>
           <Text>The old switcheroo</Text>
         </TouchableHighlight>

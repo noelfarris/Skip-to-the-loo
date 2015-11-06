@@ -8,7 +8,8 @@ var PlaceModel = require('./PlaceModel');
 var PlaceDetail = require('./PlaceDetail');
 var Button = require('react-native-button');
 var PlaceModel = require('./PlaceModel');
-var LocationDetails = require('./LocationDetails')
+var LocationDetails = require('./LocationDetails');
+var marker = require('./marker.png');
 
 
 var {
@@ -214,6 +215,7 @@ var MapPlaces = React.createClass({
                 showsUserLocation={true}
             />
             <View>
+              <Image style={styles.centerPin} source={marker} />
               <Text>Drag map to place pin over location</Text>
               <Text>Name</Text>
               <TextInput ref="locationName"
@@ -233,7 +235,6 @@ var MapPlaces = React.createClass({
                 Next
               </Button>
             </View>
-            <Image style={styles.centerPin} source={{uri: 'http://icon-park.com/imagefiles/location_map_pin_orange5.png'}} />
             <MapRegionInput
                 onChange={this._onRegionInputChanged}
                 region={this.state.mapRegionInput || undefined}
@@ -309,11 +310,12 @@ var styles = StyleSheet.create({
     padding: 4,
   },
   centerPin: {
+    flex: 1,
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 50,
-    height: 50
+    width: 40,
+    height: 40
   },
   changeButton: {
     alignSelf: 'center',

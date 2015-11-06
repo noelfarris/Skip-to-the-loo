@@ -65,6 +65,7 @@ class PlaceList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			results: [],
 			isLoading: true,
 			dataSource: new ListView.DataSource({
 				rowHasChanged: (row1, row2) => row1 !== row2
@@ -140,6 +141,18 @@ class PlaceList extends Component {
 	}
 
 	renderPlace(place) {
+		var overalls = this.state.results.map((result) => {
+            return result.get('overall');
+        })
+        console.log(overalls);
+        var overallReview = 0;
+        for(var i = 0; i < overalls.length; i++) {
+            overallReview += overalls[i]; 
+        };
+        var reviewOverall = overallReview/overalls.length;
+        var clean = this.state.results.map((result) => {
+            return result.get('cleanliness');
+        });
 
 		function distance(lon1, lat1, lon2, lat2) {
     		var R = 6371; // Radius of the earth in km
@@ -174,7 +187,7 @@ class PlaceList extends Component {
 						<Image source = {{uri: place.get("imageLinks")}} style = {styles.thumbnail}/> 
 						<View style ={styles.rightContainer}>
 						<Text style ={styles.title}>{place.get("title")}</Text> 
-						<Text style ={styles.rating}>{place.get("rating")} loo rolls</Text>
+						<Text style ={styles.rating}>{clean} Loos</Text>
 						<Text style={styles.address}>{yourDistance.toFixed(2)} miles</Text>
 						<Text style ={styles.address}>{place.get("address")}</Text> 
 					</View> 
