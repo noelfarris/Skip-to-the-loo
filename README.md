@@ -1,4 +1,4 @@
-# Find a bathroom
+# Skip to the Loo
 
 ## Find a bathroom near you.
 
