@@ -24,17 +24,21 @@ var {
 var styles = StyleSheet.create({
     container: {
         alignItems: 'flex-start',
-        marginBottom: 75
+        marginBottom: 50
     },
     image: {
         width: 375,
         height: 165,
         padding: 10,
     },
+    reviews: {
+        margin: 10,
+        backgroundColor: '#FBBC05'
+    },
     rating: {
-        padding: 10,
+        padding: 5,
         fontSize: 15,
-        color: '#FBBC05'
+        color: 'white'
     },
     address: {
         padding: 10,
@@ -73,11 +77,7 @@ var styles = StyleSheet.create({
     },
     listView: {
        backgroundColor: '#F5FCFF'
-   },
-    reviewbutton: {
-        color: '#A514CC',
-        borderRadius: 10
-    }
+   }
 });
  
 class PlaceDetail extends Component {
@@ -164,14 +164,16 @@ class PlaceDetail extends Component {
             <View>
             <View style={styles.container}>
                 <Image style={styles.image} source={{uri: imageURI}} />
-                <Text style={styles.rating}>{reviewOverall.toFixed(1)} Overall Loos</Text>
-                <Text style={styles.rating}>{avgClean.toFixed(1)} Cleanliness Loos</Text>
-                <Text style={styles.rating}>{avgPrivacy.toFixed(1)} Privacy Loos</Text>
+                <View style={styles.reviews}>
+                    <Text style={styles.rating}>{reviewOverall.toFixed(1)} Overall</Text>
+                    <Text style={styles.rating}>{avgClean.toFixed(1)} Cleanliness</Text>
+                    <Text style={styles.rating}>{avgPrivacy.toFixed(1)} Privacy</Text>
+                </View>
                 <Text style={styles.address}>Public: {pub}</Text>
                 <Text style={styles.address}>Hours: {open} - {close}</Text>
                 <Text style={styles.address}>{address}</Text>
                 <Button
-                    style={{backgroundColor: '#A514CC', borderRadius: 10, color: 'white', padding: 5, marginLeft: 10}}
+                    style={{backgroundColor: '#1F53A6', borderRadius: 10, color: 'white', padding: 5, marginLeft: 10, width: 120}}
                     onPress={() => this.showPlaceDetail(place)}>
                     Add Review
                 </Button>

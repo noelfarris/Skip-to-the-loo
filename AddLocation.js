@@ -215,22 +215,21 @@ var MapPlaces = React.createClass({
                 showsUserLocation={true}
             />
             <View>
-              <Image style={styles.centerPin} source={marker} />
-              <Text>Drag map to place pin over location</Text>
-              <Text>Name</Text>
+              <Text style={styles.header}>Drag map to place pin over location</Text>
+              <Text style={styles.text}>Name</Text>
               <TextInput ref="locationName"
                 style={styles.textInput}
                 onChangeText={(text) => this.setState({text})}
                 value={this.state.text}
               />
-              <Text>Address</Text>
+              <Text style={styles.text}>Address</Text>
               <TextInput ref="address"
                 style={styles.textInput}
                 onChangeText={(text2) => this.setState({text2})}
                 value={this.state.text2}
               />
               <Button
-                style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5, marginLeft: 10}}
+                style={{backgroundColor: '#1F53A6', borderRadius: 10, color: 'white', padding: 5, margin: 10}}
                 onPress={() => this.addPlace()}>
                 Next
               </Button>
@@ -294,7 +293,7 @@ var styles = StyleSheet.create({
         paddingTop: 65,
     },
   map: {
-    height: 380,
+    height: 355,
     marginTop: -33
   },
   row: {
@@ -302,20 +301,21 @@ var styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   textInput: {
-    width: 150,
-    height: 20,
-    borderWidth: 0.5,
+    width: 200,
+    height: 25,
+    borderWidth: 1,
     borderColor: '#aaaaaa',
-    fontSize: 13,
+    fontSize: 15,
     padding: 4,
+    marginLeft: 10
   },
-  centerPin: {
-    flex: 1,
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 40,
-    height: 40
+  text: {
+    marginLeft: 10,
+  },
+  header: {
+    fontWeight: 'bold',
+    marginLeft: 10,
+    marginBottom: 5
   },
   changeButton: {
     alignSelf: 'center',

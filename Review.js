@@ -53,12 +53,12 @@ submitReview() {
         <StarRating ref="overall" style={styles.container} />
         <Text style={styles.textTop}>Some Words</Text>
         <TextInput ref="reviewText"
-          style={{height: 160, borderColor: 'gray', borderTopWidth: 1, padding: 10, }}
+          style={{marginRight: 10, marginLeft: 10, height: 80, fontSize: 13, textAlign: 'left', multiline: 'true', borderColor: 'gray', borderWidth: 1, padding: 10, }}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
         />
         <Button
-          style={{backgroundColor: '#A514CC', borderRadius: 10, color: 'white', padding: 5, marginLeft: 10}}
+          style={{backgroundColor: '#1F53A6', borderRadius: 10, color: 'white', padding: 5, margin: 10}}
           onPress={() => AlertIOS.alert(
             'Urine business',
             'Are you sure about submitting?',

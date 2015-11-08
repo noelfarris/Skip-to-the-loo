@@ -181,11 +181,7 @@ var MapPlaces = React.createClass({
                         onRegionChangeComplete = {this._onRegionChangeComplete}
                         region = {this.state.mapRegion || undefined}
                         annotations = {this.state.locations || undefined}
-                        showsUserLocation = {true}/> 
-                <TouchableHighlight onPress = {this._onPressButton}>
-                <Image source = {getLocation}
-                    style = {styles.location}/> 
-                </TouchableHighlight> 
+                        showsUserLocation = {true}/>  
                 <MapRegionInput onChange = {this._onRegionInputChanged}
                     region = {this.state.mapRegionInput || undefined}/> 
                 </View>

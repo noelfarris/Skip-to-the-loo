@@ -6,6 +6,7 @@ var ReviewModel = require('./ReviewModel');
 var PlaceModel = require('./PlaceModel');
 var BookList = require('./BookList');
 var Camera = require('./Camera');
+var MapPlaces = require('./MapPlaces');
 
 
 var {
@@ -44,7 +45,7 @@ submitReview() {
       placeID: targetPlaceModel
     })
     newReview.save();
-    this.props.navigator.pop();
+    this.props.navigator.replace('MapPlaces');
   },
 
   showPlaceDetail(targetPlaceModel) {
@@ -77,7 +78,7 @@ submitReview() {
               onChangeText={(text2) => this.setState({text2})}
               value={this.state.text2}
             />
-        <Button style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}} onPress={() => this.showPlaceDetail(targetPlaceModel)}>Add</Button>
+        <Button style={{backgroundColor: '#1F53A6', borderRadius: 10, color: 'white', padding: 5, marginLeft: 10, marginBottom: 10, marginTop: 10, width: 120}} onPress={() => this.showPlaceDetail(targetPlaceModel)}>Add Photo</Button>
         <StarRating ref="cleanliness" style={styles.container} />
         <Text style={styles.text}>Privacy</Text>
         <StarRating ref="privacy" style={styles.container} />
@@ -85,12 +86,12 @@ submitReview() {
         <StarRating ref="overall" style={styles.container} />
         <Text style={styles.text}>Some Words</Text>
         <TextInput ref="reviewText"
-          style={{height: 90, fontSize: 13, textAlign: 'left', multiline: 'true', borderColor: 'gray', borderWidth: 1, padding: 10, }}
+          style={{marginRight: 10, marginLeft: 10, height: 80, fontSize: 13, textAlign: 'left', multiline: 'true', borderColor: 'gray', borderWidth: 1, padding: 10, }}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
         />
         <Button
-          style={{borderWidth: 1, borderColor: '#3D9AFF', padding: 5}}
+          style={{backgroundColor: '#1F53A6', borderRadius: 10, color: 'white', padding: 5, margin: 10}}
           onPress={() => AlertIOS.alert(
             'Urine business',
             'Are you sure about submitting?',
@@ -109,14 +110,13 @@ submitReview() {
 
 var styles = StyleSheet.create({
 	container: {
-    justifyContent: 'flex-start'
   },
   textInput: {
-    width: 150,
-    height: 20,
-    borderWidth: 0.5,
+    width: 200,
+    height: 25,
+    borderWidth: 1,
     borderColor: '#aaaaaa',
-    fontSize: 13,
+    fontSize: 15,
     padding: 4,
     marginLeft: 10
   },
@@ -129,18 +129,19 @@ var styles = StyleSheet.create({
     padding: 10,
   },
   textTop: {
-        marginTop: 65,
-        flex: 1,
-        padding: 10,
-        fontSize: 15,
-        color: '#656565',
-    },
-    text: {
-        padding: 10,
-        fontSize: 15,
-        color: '#656565',
-        alignItems: 'center',
-    },
+    marginTop: 65,
+    flex: 1,
+    padding: 10,
+    fontSize: 15,
+    color: '#656565',
+  },
+  text: {
+    padding: 10,
+    fontSize: 15,
+    color: '#656565',
+    alignItems: 'center',
+    marginBottom: -5
+  },
 });
 
 
