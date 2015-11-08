@@ -177,6 +177,12 @@ class PlaceList extends Component {
     		return distance(this.state.lastPosition.coords.longitude, this.state.lastPosition.coords.latitude, place.get('location').longitude, place.get('location').latitude);
 			}
 		};
+		var pub;
+		if(place.get('Public') === true) {
+            pub = 'Public'
+        } else {
+            pub = 'Private'
+        };
 		var yourDistance = getDistance();
 		console.log(yourDistance);
 		return ( 
@@ -187,7 +193,7 @@ class PlaceList extends Component {
 						<Image source = {{uri: place.get("imageLinks")}} style = {styles.thumbnail}/> 
 						<View style ={styles.rightContainer}>
 						<Text style ={styles.title}>{place.get("title")}</Text> 
-						<Text style ={styles.rating}>{clean} Loos</Text>
+						<Text style ={styles.rating}>{pub}</Text>
 						<Text style={styles.address}>{yourDistance.toFixed(2)} miles</Text>
 						<Text style ={styles.address}>{place.get("address")}</Text> 
 					</View> 

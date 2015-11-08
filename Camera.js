@@ -1,9 +1,11 @@
 var React = require('react-native');
+var photo = require('./photo.png')
 
 var {
   StyleSheet,
   Text,
   View,
+  Image,
   TouchableHighlight
 } = React;
 var Camera = require('react-native-camera');
@@ -14,9 +16,9 @@ var cameraApp = React.createClass({
       cameraType: Camera.constants.Type.back
     }
   },
- 
+
+
   render() {
- 
     return (
       <Camera
         ref="cam"
@@ -28,11 +30,17 @@ var cameraApp = React.createClass({
           <Text>The old switcheroo</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={this._takePicture}>
-          <Text>Take Picture</Text>
+          <Image source={photo} />
         </TouchableHighlight>
       </Camera>
     );
   },
+  savePhoto() {
+  var placeID = this.props.targetPlaceModel.id;
+  var newTargetPlaceModel = new PlaceModel({objectId: placeID});
+  newTargetPlaceModel.set('photo', data);
+  newTargetPlaceModel.save();
+},
   _onBarCodeRead(e) {
     console.log(e);
   },
@@ -45,7 +53,8 @@ var cameraApp = React.createClass({
   _takePicture() {
     this.refs.cam.capture(function(err, data) {
       console.log(err, data);
-    });
+      savePhoto(data);
+      });
   }
 });
  
