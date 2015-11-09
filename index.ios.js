@@ -5,9 +5,9 @@ var Parse = require('parse/react-native');
 var Featured = require('./Featured');
 var Search = require('./Search');
 var AddLocationTab = require('./AddLocationTab');
-var Plus = require('./plus.png');
-var Treasure = require('./treasure.png');
-var List = require('./list.png')
+var Plus = require('image!plus');
+var Treasure = require('image!treasure');
+var List = require('image!list')
 
 var {
     AppRegistry,

@@ -1,5 +1,5 @@
 var React = require('react-native');
-var photo = require('./photo.png')
+var photo = require('image!photo')
 
 var {
   StyleSheet,

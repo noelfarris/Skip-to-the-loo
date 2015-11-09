@@ -28,8 +28,8 @@ var StarRating = React.createClass({
         width: 30,
         height: 30
       },
-      starOn: require('./star.png'),
-      starOff: require('./star-off.png')
+      starOn: require('image!star'),
+      starOff: require('image!star-off')
     }
   },
 
