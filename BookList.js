@@ -1,5 +1,7 @@
 'use strict';
-
+//This is a react native app I created that will let you search for restrooms in your area via a map and list view, the results inclue ratings. You can add new restrooms and ratings.
+//I used Parse for backend data
+//This component is for the list view of the app which shows locations and their data
 var Parse = require('parse/react-native');
 var ParseReact = require('parse-react');
 var React = require('react-native');
@@ -15,7 +17,7 @@ var {
 	TouchableHighlight,
 	ActivityIndicatorIOS
 } = React;
-
+//creating styles 
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -79,7 +81,7 @@ class PlaceList extends Component {
 			lastPosition: 'unknown',
 		};
 	}
-
+	//getting locations in your area
 	componentDidMount() {
 		var query = new Parse.Query('Place');
 		query.find()
@@ -107,7 +109,7 @@ class PlaceList extends Component {
 		
 		
 	}
-
+	//goes to detail view of location
 	showPlaceDetail(place) {
 		this.props.navigator.push({
 			title: place.get('title'),
@@ -153,7 +155,7 @@ class PlaceList extends Component {
         var clean = this.state.results.map((result) => {
             return result.get('cleanliness');
         });
-
+		//Calculates current distance to location
 		function distance(lon1, lat1, lon2, lat2) {
     		var R = 6371; // Radius of the earth in km
     		var dLat = (lat2 - lat1).toRad(); // Javascript functions in radians
